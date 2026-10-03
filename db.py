@@ -41,51 +41,7 @@ cursor.execute("""
     )
 """)
 
-cursor.execute("""
-INSERT INTO students (
-    full_name,
-    date_of_birth,
-    age,
-    gender,
-    mobile_number,
-    email_address,
-    password,
-    preferred_language,
-    school_college_name,
-    class_grade,
-    board_curriculum,
-    academic_year,
-    tuition_subjects,
-    subject_levels,
-    topics_needing_help,
-    parent_guardian_name,
-    parent_guardian_relationship,
-    parent_guardian_mobile_number,
-    parent_guardian_email_address,
-    preferred_communication_method
-) VALUES (
-    'Arjun Nair',
-    '2010-06-15',
-    16,
-    'Male',
-    9876543210,
-    'arjun.nair22@gmail.com',
-    'Arjun@123',
-    'English',
-    'Green Valley Public School',
-    '10',
-    'CBSE',
-    '2026-27',
-    '["Mathematics", "Physics", "Chemistry"]',
-    '{"Mathematics":"Intermediate","Physics":"Beginner","Chemistry":"Intermediate"}',
-    '["Quadratic Equations", "Electricity", "Chemical Reactions"]',
-    'Suresh Nair',
-    'Father',
-    9123456789,
-    'suresh.nair@gmail.com',
-    'WhatsApp'
-);
-""")
+#DDL COMMANDS IN DB.PY
  
 # Save changes
 conn.commit()

@@ -20,3 +20,5 @@ preferred_language=input("enter your preferred language: ")
 school_college_name=input("enter your school/college name: ")
 board_curriculum=input("enter your board/curriculum: ")
 academic_year=input("enter your academic year: ")
+def saveToDb(self)
+    import sqlite3   

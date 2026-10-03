@@ -1,57 +1,77 @@
 class StudentClass:
-    def __init__(
-        self,
-        full_name=None,
-        date_of_birth=None,
-        age=None,
-        gender=None,
-        mobile_number=None,
-        email_address=None,
-        password=None,
-        preferred_language=None,
-        school_college_name=None,
-        class_grade=None,
-        board_curriculum=None,
-        academic_year=None,
-        tuition_subjects=None,
-        subject_levels=None,
-        topics_needing_help=None,
-        parent_guardian_name=None,
-        parent_guardian_relationship=None,
-        parent_guardian_mobile_number=None,
-        parent_guardian_email_address=None,
-        preferred_communication_method=None,
-    ):
+
+    def __init__(self):
+        self.full_name = ""
+        self.date_of_birth = ""
+        self.age = None
+        self.gender = ""
+        self.mobile_number = ""
+        self.email_address = ""
+        self.email = ""
+        self.password = ""
+        self.preferred_language = ""
+        self.school_college_name = ""
+        self.class_grade = ""
+        self.board_curriculum = ""
+        self.academic_year = ""
+
+        self.tuition_subjects = []
+        self.subject_levels = {}
+        self.topics_needing_help = []
+        self.parent_guardian_name = ""
+        self.parent_guardian_relationship = ""
+        self.parent_guardian_mobile_number = ""
+        self.parent_guardian_email_address = ""
+        self.preferred_communication_method = ""
+
+    def setPrimaryDetails(self, full_name, date_of_birth, age, gender, mobile_number, preferred_language, school_college_name, class_grade, board_curriculum, academic_year):
         self.full_name = full_name
         self.date_of_birth = date_of_birth
         self.age = age
         self.gender = gender
         self.mobile_number = mobile_number
-        self.email_address = email_address
-        self.password = password
         self.preferred_language = preferred_language
         self.school_college_name = school_college_name
         self.class_grade = class_grade
         self.board_curriculum = board_curriculum
         self.academic_year = academic_year
-        self.tuition_subjects = tuition_subjects if tuition_subjects is not None else []
-        self.subject_levels = subject_levels if subject_levels is not None else {}
-        self.topics_needing_help = topics_needing_help if topics_needing_help is not None else []
-        self.parent_guardian_name = parent_guardian_name
-        self.parent_guardian_relationship = parent_guardian_relationship
-        self.parent_guardian_mobile_number = parent_guardian_mobile_number
-        self.parent_guardian_email_address = parent_guardian_email_address
-        self.preferred_communication_method = preferred_communication_method
 
-    def setUserNameAndPassword(self, email, password):
-        self.email_address = email
-        self.password = password
+    def savePrimaryDetailsToDB(self):
+         import sqlite3
+         conn = sqlite3.connect("tution.db")
 
-    def set_username_and_password(self, email, password):
-        self.setUserNameAndPassword(email, password)
+            # Create a cursor
+         cursor = conn.cursor()
 
-    def set_user_name_and_password(self, email, password):
-        self.setUserNameAndPassword(email, password)
+         # Insert primary details into the students table
+         cursor.execute("""
+         INSERT INTO students (full_name, date_of_birth, age, gender, mobile_number, preferred_language, school_college_name, class_grade, board_curriculum, academic_year)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         """, (self.full_name, self.date_of_birth, self.age, self.gender, self.mobile_number, self.preferred_language, self.school_college_name, self.class_grade, self.board_curriculum, self.academic_year))
+
+         # Save changes
+         conn.commit()
+         conn.close()  
 
 
-Studentclass = StudentClass
+    def saveAcademicDetailsToDB(self):
+        import sqlite3
+
+        # Create/connect to database
+        conn = sqlite3.connect("tution.db")
+
+        # Create a cursor
+        cursor = conn.cursor()
+
+        # Insert academic details into the students table
+        cursor.execute("""
+            UPDATE studentClass
+            SET tuition_subjects = ?, subject_levels = ?, topics_needing_help = ?, preferred_communication_method = ?
+            WHERE email_address = ?
+        """, (str(self.tuition_subjects), str(self.subject_levels), str(self.topics_needing_help), self.preferred_communication_method, self.email_address))
+
+        # Save changes
+        conn.commit()
+
+        # Close connection
+        conn.close()    
